@@ -1,7 +1,11 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { getEmployees, deleteEmployee } from '../services/employeeService';
 import EmployeeForm from './EmployeeForm';
+import { useNavigate } from 'react-router-dom';
+
+const navigate = useNavigate();
 
 function EmployeeList() {
   const [employees, setEmployees] = useState([]);
@@ -25,10 +29,10 @@ function EmployeeList() {
     fetchEmployees();
   };
 
-  const handleEdit = (employee) => {
-    setSelectedEmployee(employee);
-    setShowForm(true);
-  };
+ 
+const handleEdit = (employee) => {
+  navigate('/edit-employee', { state: { employee } });
+};
 
   return (
     <div>

@@ -1,0 +1,80 @@
+
+/* EditEmployee.css */
+
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Form container */
+  .edit-employee-form {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Form heading */
+  .edit-employee-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Alert message */
+  .alert {
+    color: red;
+    margin-bottom: 15px;
+  }
+  
+  /* Form fields */
+  .edit-employee-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .edit-employee-form form > div {
+    margin-bottom: 15px;
+  }
+  
+  .edit-employee-form label {
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .edit-employee-form input[type="text"],
+  .edit-employee-form input[type="email"],
+  .edit-employee-form input[type="tel"],
+  .edit-employee-form select,
+  .edit-employee-form input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .edit-employee-form input[type="radio"],
+  .edit-employee-form label input[type="checkbox"] {
+    margin-right: 5px;
+  }
+  
+  /* Submit button */
+  .edit-employee-form button[type="submit"] {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .edit-employee-form button[type="submit"]:hover {
+    background-color: #2980b9;
+  }
+  

@@ -46,18 +46,12 @@ const EmployeePage = () => {
   };
 
   const handleCreate = () => {
-    navigate('/create-employee'); // Navigate to create employee form
+    navigate('/create-employee');
   };
 
   return (
     <div className="container">
-      <nav className="navbar">
-        <h1>Employee Management</h1>
-        <div>
-          <span>Welcome, User</span>
-          <button onClick={() => { /* Logout logic */ }}>Logout</button>
-        </div>
-      </nav>
+     
 
       <div className="employee-list-container">
         <h2>Employee List</h2>

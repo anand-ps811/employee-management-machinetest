@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import EmployeePage from './pages/EmployeePage';
 import CreateEmployee from './components/CreateEmployee'; 
+import EditEmployee from './components/EditEmployee';
 
 function App() {
   const isAuthenticated = !!localStorage.getItem('token');
@@ -17,6 +18,7 @@ function App() {
         <Route path="/register" element={isAuthenticated ? <Navigate to="/" /> : <Register />} />
         <Route path="/" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
         <Route path="/employees" element={isAuthenticated ? <EmployeePage /> : <Navigate to="/login" />} />
+        <Route path="/edit-employee/:id" element={<EditEmployee />} />
         <Route path="/create-employee" element={<CreateEmployee />} />
       </Routes>
     </Router>

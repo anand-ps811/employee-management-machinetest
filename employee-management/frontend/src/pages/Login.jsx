@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Login.css'
 import { login } from '../services/authService';
 
 function Login() {
@@ -13,13 +14,12 @@ function Login() {
     try {
       const response = await login(username, password);
       localStorage.setItem('token', response.data.token);
-      
-      // Ensure the navigation happens right after setting the token
-      navigate('/');
+      window.location.href = '/'; // Redirect to home page
     } catch (error) {
       alert('Login failed. Please check your credentials.');
     }
   };
+  
 
   return (
     <div>

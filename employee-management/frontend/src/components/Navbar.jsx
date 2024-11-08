@@ -8,9 +8,12 @@ function Navbar({ handleShowEmployeeList, handleShowHome, userName }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('token'); // Remove the authentication token
-    navigate('/login'); // Redirect to the login page
+    localStorage.removeItem('token');
+    navigate('/login');
+    window.location.reload(); // Optional, forces re-render on logout
   };
+  
+  
 
   return (
     <nav>

@@ -1,9 +1,11 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
-const CreateEmployee = () => {
+import Navbar from '../components/Navbar';
+import './CreateEmployee.css'
+const CreateEmployee = ({ handleShowEmployeeList, handleShowHome, userName }) => { // Added missing props
   const navigate = useNavigate();
   
   const [name, setName] = useState('');
@@ -39,8 +41,10 @@ const CreateEmployee = () => {
     formData.append('mobile', mobile);
     formData.append('designation', designation);
     formData.append('gender', gender);
-    formData.append('courses', courses);
-    formData.append('profileImage', Image);
+
+    // Append courses individually as formData does not handle arrays directly
+    courses.forEach((course, index) => formData.append(`courses[${index}]`, course));
+    formData.append('profileImage', profileImage); // Corrected variable name
 
     try {
       const response = await axios.post('http://localhost:3001/api/employees', formData, {
@@ -55,67 +59,72 @@ const CreateEmployee = () => {
   };
 
   return (
-    <div className="create-employee-form">
-      <h2>Create New Employee</h2>
-      {error && <div className="alert alert-danger">{error}</div>}
+    <div>
+      {/* Navbar with correct props */}
+      <Navbar handleShowEmployeeList={handleShowEmployeeList} handleShowHome={handleShowHome} userName={userName} />
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name</label>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
-        </div>
+      <div className="create-employee-form">
+        <h2>Create New Employee</h2>
+        {error && <div className="alert alert-danger">{error}</div>}
 
-        <div>
-          <label>Email</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>Name</label>
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+          </div>
 
-        <div>
-          <label>Mobile</label>
-          <input type="text" value={mobile} onChange={(e) => setMobile(e.target.value)} required />
-        </div>
+          <div>
+            <label>Email</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          </div>
 
-        <div>
-          <label>Designation</label>
-          <select value={designation} onChange={(e) => setDesignation(e.target.value)} required>
-            <option value="">Select Designation</option>
-            <option value="Manager">Manager</option>
-            <option value="Developer">Developer</option>
-            <option value="Designer">Designer</option>
-            {/* Add other designations as needed */}
-          </select>
-        </div>
+          <div>
+            <label>Mobile</label>
+            <input type="text" value={mobile} onChange={(e) => setMobile(e.target.value)} required />
+          </div>
 
-        <div>
-          <label>Gender</label>
-          <label>
-            <input type="radio" value="Male" checked={gender === 'Male'} onChange={() => setGender('Male')} /> Male
-          </label>
-          <label>
-            <input type="radio" value="Female" checked={gender === 'Female'} onChange={() => setGender('Female')} /> Female
-          </label>
-        </div>
+          <div>
+            <label>Designation</label>
+            <select value={designation} onChange={(e) => setDesignation(e.target.value)} required>
+              <option value="">Select Designation</option>
+              <option value="Manager">Manager</option>
+              <option value="Developer">Developer</option>
+              <option value="Designer">Designer</option>
+              {/* Add other designations as needed */}
+            </select>
+          </div>
 
-        <div>
-          <label>Courses</label>
-          <label>
-            <input type="checkbox" value="JavaScript" onChange={(e) => setCourses(prev => e.target.checked ? [...prev, 'JavaScript'] : prev.filter(course => course !== 'JavaScript'))} /> JavaScript
-          </label>
-          <label>
-            <input type="checkbox" value="React" onChange={(e) => setCourses(prev => e.target.checked ? [...prev, 'React'] : prev.filter(course => course !== 'React'))} /> React
-          </label>
-          <label>
-            <input type="checkbox" value="Node" onChange={(e) => setCourses(prev => e.target.checked ? [...prev, 'Node'] : prev.filter(course => course !== 'Node'))} /> Node
-          </label>
-        </div>
+          <div>
+            <label>Gender</label>
+            <label>
+              <input type="radio" value="Male" checked={gender === 'Male'} onChange={() => setGender('Male')} /> Male
+            </label>
+            <label>
+              <input type="radio" value="Female" checked={gender === 'Female'} onChange={() => setGender('Female')} /> Female
+            </label>
+          </div>
 
-        <div>
-          <label>Profile Image</label>
-          <input type="file" onChange={handleFileChange} required />
-        </div>
+          <div>
+            <label>Courses</label>
+            <label key="JavaScript">
+              <input type="checkbox" value="JavaScript" onChange={(e) => setCourses(prev => e.target.checked ? [...prev, 'JavaScript'] : prev.filter(course => course !== 'JavaScript'))} /> JavaScript
+            </label>
+            <label key="React">
+              <input type="checkbox" value="React" onChange={(e) => setCourses(prev => e.target.checked ? [...prev, 'React'] : prev.filter(course => course !== 'React'))} /> React
+            </label>
+            <label key="Node">
+              <input type="checkbox" value="Node" onChange={(e) => setCourses(prev => e.target.checked ? [...prev, 'Node'] : prev.filter(course => course !== 'Node'))} /> Node
+            </label>
+          </div>
 
-        <button type="submit">Submit</button>
-      </form>
+          <div>
+            <label>Profile Image</label>
+            <input type="file" onChange={handleFileChange} required />
+          </div>
+
+          <button type="submit">Submit</button>
+        </form>
+      </div>
     </div>
   );
 };
